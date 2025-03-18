@@ -20,11 +20,16 @@ public class SessionService : ISessionService
 
     public async Task<Session> GetSessionAsync()
     {
-        throw new NotImplementedException();
+        return _sessions
+        .Where(s => s.DeviceType == DeviceType.Desktop)
+        .OrderBy(s => s.StartTime)
+        .FirstOrDefault();
     }
 
     public async Task<List<Session>> GetSessionsAsync()
     {
-        throw new NotImplementedException();
+        return _sessions
+       .Where(s => s.User.IsActive && s.EndTime.Year < 2025)
+       .ToList();
     }
 }
